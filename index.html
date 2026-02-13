@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>❤️ For Kitkat ❤️</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            height: 100vh;
+            background: linear-gradient(135deg, #ffe6e6, #ffb3c6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            color: #d6336c;
+            font-size: 2.4rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2rem;
+        }
+
+        .btn {
+            margin: 10px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .yes {
+            background: #d6336c;
+            color: white;
+        }
+
+        .no {
+            background: #555;
+            color: white;
+        }
+
+        /* BIG HEART */
+        .big-heart {
+            position: fixed;
+            font-size: 130px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: beat 1s infinite;
+            display: none;
+            z-index: 1;
+        }
+
+        @keyframes beat {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+        /* BROKEN HEART */
+        .broken-heart {
+            position: fixed;
+            font-size: 150px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            display: none;
+            z-index: 5;
+        }
+
+        /* POP EFFECT */
+        @keyframes popBroken {
+            0% { transform: translate(-50%, -50%) scale(0); }
+            60% { transform: translate(-50%, -50%) scale(1.3); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        /* SAD SHAKE */
+        @keyframes shakeHeart {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            25% { transform: translate(-50%, -50%) rotate(-5deg); }
+            50% { transform: translate(-50%, -50%) rotate(5deg); }
+            75% { transform: translate(-50%, -50%) rotate(-5deg); }
+        }
+
+        #loveLetter {
+            margin-top: 20px;
+            display: none;
+            font-size: 1.05rem;
+        }
+
+        #noMessage {
+            font-size: 1.3rem;
+            color: #d6336c;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Music -->
+    <audio autoplay loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <h1>Kitkat 😌💖</h1>
+        <p>Will You Be My Valentine? 💍</p>
+
+        <button class="btn yes" onclick="sayYes()">Yes 💕</button>
+        <button class="btn no" onclick="sayNo()">No 😢</button>
+
+        <p id="response"></p>
+        <p id="noMessage"></p>
+
+        <!-- Love Letter -->
+        <div id="loveLetter">
+            <h2>💌 A Letter For You 💌</h2>
+            <p>
+                Dear Kitkat 😌💖  
+                <br><br>
+                Soooo… you actually pressed YES huh? 😏💕  
+                I mean, I totally understand… I *am* quite irresistible 😌✨  
+                <br><br>
+                But honestly… you have no idea how happy you make me.
+                Your smile? Dangerous. Your laugh? Completely unfair.
+                And you? Absolutely my favorite person. 💕  
+                <br><br>
+                Every time I talk to you, my day instantly gets better.
+                Every time you smile, my heart forgets how to behave 😌💓  
+                <br><br>
+                And now that you're officially my Valentine… 😏💖  
+                I hope you're ready for unlimited teasing, smiles,
+                and stolen moments 😌💕
+                <br><br>
+                Yours (yes, yours 😌💘)
+            </p>
+        </div>
+    </div>
+
+    <!-- Visual Effects -->
+    <div class="big-heart" id="bigHeart">❤️</div>
+    <div class="broken-heart" id="brokenHeart">💔</div>
+
+    <script>
+        function sayYes() {
+            document.getElementById("response").innerText = "YAY Kitkat!!! 😌💖";
+            document.getElementById("loveLetter").style.display = "block";
+            document.getElementById("bigHeart").style.display = "block";
+            document.getElementById("brokenHeart").style.display = "none";
+            document.getElementById("noMessage").innerText = "";
+
+            createHearts();
+        }
+
+        function sayNo() {
+            // Show broken heart with pop & shake
+            const broken = document.getElementById("brokenHeart");
+            broken.style.display = "block";
+            broken.style.animation = "none";
+            broken.offsetHeight;  
+            broken.style.animation = "popBroken 0.6s ease-out, shakeHeart 0.8s ease-in-out";
+
+            // Hide love letter & big heart
+            document.getElementById("loveLetter").style.display = "none";
+            document.getElementById("bigHeart").style.display = "none";
+            document.getElementById("response").innerText = "";
+
+            // Show playful NO message
+            document.getElementById("noMessage").innerText = 
+                "Sorry this feature is not available mam choose another 😓🙅‍♂️🤪";
+        }
+
+        function createHearts() {
+            const letter = document.getElementById("loveLetter");
+
+            for (let i = 0; i < 25; i++) {
+                let heart = document.createElement("div");
+                heart.innerHTML = "❤️";
+
+                const rect = letter.getBoundingClientRect();
+                heart.style.position = "fixed";
+                heart.style.left = rect.left + rect.width / 2 + "px";
+                heart.style.top = rect.top + rect.height / 2 + "px";
+                heart.style.fontSize = (Math.random() * 20 + 20) + "px";
+                heart.style.zIndex = "999";
+                heart.style.pointerEvents = "none";
+                heart.style.transition = "all 2.5s ease-out";
+
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.style.left = Math.random() * 100 + "vw";
+                    heart.style.top = Math.random() * 100 + "vh";
+                    heart.style.opacity = "0";
+                    heart.style.transform = "scale(1.8)";
+                }, 100);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 2600);
+            }
+        }
+    </script>
+
+</body>
+</html>
